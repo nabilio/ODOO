@@ -1,33 +1,32 @@
-version: '3.1'
+version: '2'
 
 services:
-  web:
-    image: odoo:16.0  # Spécifie la version d'Odoo, ici la version 16
-    depends_on:
-      - db
+  odoo:
+    image: bitnami/odoo:16
+    environment:
+      - ODOO_DATABASE_HOST=postgresql
+      - ODOO_DATABASE_PORT_NUMBER=5432
+      - ODOO_DATABASE_USER=bn_odoo
+      - ODOO_DATABASE_PASSWORD=odoo123
+      - ODOO_DATABASE_NAME=bitnami_odoo
+      - ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - "8069:8069"  # Port par défaut d'Odoo
-    environment:
-      - HOST=db
-      - USER=odoo
-      - PASSWORD=odoo
-      - POSTGRES_DB=odoo
-    command: odoo -i base  # Force l'installation du module 'base' lors du premier démarrage
+      - "8069:8069"
+    depends_on:
+      - postgresql
     volumes:
-      - odoo-web-data:/var/lib/odoo  # Pour persister les données Odoo
-      - ./config:/etc/odoo  # Pour monter un fichier de configuration personnalisé si nécessaire
-    restart: always
+      - odoo_data:/bitnami/odoo
 
-  db:
-    image: postgres:13  # Version de PostgreSQL, ici la version 13
+  postgresql:
+    image: bitnami/postgresql:latest
     environment:
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo
-      POSTGRES_DB: odoo
+      - POSTGRESQL_DATABASE=bitnami_odoo
+      - POSTGRESQL_USERNAME=bn_odoo
+      - POSTGRESQL_PASSWORD=odoo123
+      - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data  # Pour persister les données PostgreSQL
-    restart: always
+      - postgresql_data:/bitnami/postgresql
 
 volumes:
-  odoo-web-data:
-  odoo-db-data:
+  odoo_data:
+  postgresql_data:
