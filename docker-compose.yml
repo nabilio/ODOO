@@ -1,4 +1,4 @@
-version: '2'
+version: '1'
 
 services:
   odoo:
@@ -10,6 +10,7 @@ services:
       - ODOO_DATABASE_PASSWORD=odoo123
       - ODOO_DATABASE_NAME=bitnami_odoo
       - ALLOW_EMPTY_PASSWORD=yes
+      - ODOO_MASTER_PASSWORD=my_master_password  # Ajoute cette ligne pour définir le mot de passe maître
     ports:
       - "8069:8069"
     depends_on:
