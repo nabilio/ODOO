@@ -8,9 +8,9 @@ services:
       - ODOO_DATABASE_PORT_NUMBER=5432
       - ODOO_DATABASE_USER=bn_odoo
       - ODOO_DATABASE_PASSWORD=odoo123
-      - ODOO_MASTER_PASSWORD=1234  # Définit le mot de passe maître
+      - ODOO_MASTER_PASSWORD=Yazid.1234@!  # Définit le mot de passe maître
       - ODOO_ADMIN_EMAIL=rouijel.nabil@gmail.com  # Email pour l'admin lors de la création
-      - ODOO_ADMIN_PASSWORD=1234  # Mot de passe pour l'admin
+      - ODOO_ADMIN_PASSWORD=Yazid.1234@!  # Mot de passe pour l'admin
     ports:
       - "8069:8069"
     depends_on:
