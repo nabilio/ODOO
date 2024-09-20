@@ -1,4 +1,4 @@
-version: '1'
+version: '2'
 
 services:
   odoo:
@@ -10,7 +10,10 @@ services:
       - ODOO_DATABASE_PASSWORD=odoo123
       - ODOO_DATABASE_NAME=bitnami_odoo
       - ALLOW_EMPTY_PASSWORD=yes
-      - ODOO_MASTER_PASSWORD=my_master_password  # Ajoute cette ligne pour définir le mot de passe maître
+      - ODOO_MASTER_PASSWORD=Yazid200.  # Définit le mot de passe maître
+      - ODOO_ADMIN_EMAIL=rouijel.nabil@gmail.com  # Ajoute un email pour l'admin par défaut
+      - ODOO_ADMIN_PASSWORD=Yazid200.  # Mot de passe pour l'admin par défaut
+      - ODOO_DATABASE_NAME=my_odoo_db  # Nom de la base de données par défaut
     ports:
       - "8069:8069"
     depends_on:
