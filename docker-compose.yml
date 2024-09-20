@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+  web:
+    image: odoo:16.0  # Spécifie la version d'Odoo, ici la version 16
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"  # Port par défaut d'Odoo
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    volumes:
+      - odoo-web-data:/var/lib/odoo  # Pour persister les données Odoo
+      - ./config:/etc/odoo  # Pour monter un fichier de configuration personnalisé si nécessaire
+    restart: always
+
+  db:
+    image: postgres:13  # Version de PostgreSQL, ici la version 13
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data  # Pour persister les données PostgreSQL
+    restart: always
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
