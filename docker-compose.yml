@@ -1,30 +1,36 @@
-version: '2'
+version: '3.1'
 
 services:
-  odoo:
-    image: bitnami/odoo:16
+  db:
+    image: postgres:13
     environment:
-      - ODOO_DATABASE_HOST=postgresql
-      - ODOO_DATABASE_PORT_NUMBER=5432
-      - ODOO_DATABASE_USER=bn_odoo
-      - ODOO_DATABASE_PASSWORD=odoo123
-      - ODOO_MASTER_PASSWORD=Yazid.1234@!  # Définit le mot de passe maître pour la gestion des bases de données
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - odoo_network
+
+  odoo:
+    image: odoo:16.0
+    depends_on:
+      - db
     ports:
       - "8069:8069"
-    depends_on:
-      - postgresql
-    volumes:
-      - odoo_data:/bitnami/odoo
-
-  postgresql:
-    image: bitnami/postgresql:latest
     environment:
-      - POSTGRESQL_USERNAME=bn_odoo
-      - POSTGRESQL_PASSWORD=odoo123
-      - ALLOW_EMPTY_PASSWORD=yes
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - PGDATABASE=postgres
     volumes:
-      - postgresql_data:/bitnami/postgresql
+      - odoo_data:/var/lib/odoo
+    networks:
+      - odoo_network
+
+networks:
+  odoo_network:
 
 volumes:
+  db_data:
   odoo_data:
-  postgresql_data:
