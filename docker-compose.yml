@@ -8,9 +8,7 @@ services:
       - ODOO_DATABASE_PORT_NUMBER=5432
       - ODOO_DATABASE_USER=bn_odoo
       - ODOO_DATABASE_PASSWORD=odoo123
-      - ODOO_MASTER_PASSWORD=Yazid.1234@!  # Définit le mot de passe maître
-      - ODOO_ADMIN_EMAIL=rouijel.nabil@gmail.com  # Email pour l'admin lors de la création
-      - ODOO_ADMIN_PASSWORD=Yazid.1234@!  # Mot de passe pour l'admin
+      - ODOO_MASTER_PASSWORD=Yazid.1234@!  # Définit le mot de passe maître pour la gestion des bases de données
     ports:
       - "8069:8069"
     depends_on:
@@ -21,7 +19,6 @@ services:
   postgresql:
     image: bitnami/postgresql:latest
     environment:
-      - POSTGRESQL_DATABASE=bitnami_odoo  # La base de données initiale que PostgreSQL utilisera
       - POSTGRESQL_USERNAME=bn_odoo
       - POSTGRESQL_PASSWORD=odoo123
       - ALLOW_EMPTY_PASSWORD=yes
